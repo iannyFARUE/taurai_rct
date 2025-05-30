@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${JDBC_DATABASE_URL:${DATABASE_URL}}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://hopper.proxy.rlwy.net:10993/railway
+    username: postgres
+    password: eXHFydMBAkhxTmhimTuEyRbuHQLjSKyB
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
