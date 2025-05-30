@@ -30,7 +30,7 @@ import org.springframework.beans.factory.annotation.Value;
 public class SecurityConfig {
 
         
-    @Value("application.firewalls.cors.allowed-origins")
+    @Value("${application.firewalls.cors.allowed-origins}")
     private String allowedOrigins;
 
     private static final String[] WHITE_LIST_URL = {"/api/v1/auth/**",

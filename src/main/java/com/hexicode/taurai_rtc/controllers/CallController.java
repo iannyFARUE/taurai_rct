@@ -20,7 +20,6 @@ import com.hexicode.taurai_rtc.services.CallService;
 // Call Controller for REST endpoints
 @RestController
 @RequestMapping("/api/calls")
-@CrossOrigin(origins = "*")
 public class CallController {
     
     @Autowired
