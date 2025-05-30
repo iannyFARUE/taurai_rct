@@ -6,22 +6,32 @@ spring:
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
-      connection-timeout: 20000
+      connection-timeout: 30000  # Increased from 20000
+      initialization-fail-timeout: -1  # This allows retries
+      minimum-idle: 1
+      idle-timeout: 600000
+      max-lifetime: 1800000
   
   jpa:
     hibernate:
-      ddl-auto: update  # Create tables automatically in prod
+      ddl-auto: update
     show-sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
         format_sql: false
+        jdbc:
+          time_zone: UTC
+        connection:
+          provider_disables_autocommit: true
+    # Add this to delay initialization
+    defer-datasource-initialization: true
 
-# Production logging
 logging:
   level:
     com.hexicode: INFO
     org.springframework.web.socket: INFO
     org.springframework.security: INFO
-  pattern:
-    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    org.hibernate: DEBUG
+    com.zaxxer.hikari: DEBUG
+    org.postgresql: DEBUG
