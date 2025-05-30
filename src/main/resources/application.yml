@@ -28,7 +28,7 @@ server:
 
 spring:
   profiles:
-    active: prod
+    active: ${SPRING_PROFILES_ACTIVE:dev}
   
   # Database config - Railway will provide DATABASE_URL
   datasource:
