@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}
+    url: ${JDBC_DATABASE_URL:${DATABASE_URL}}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
@@ -18,8 +18,8 @@ spring:
 # Production logging
 logging:
   level:
-    com.hexicode: INFO
-    org.springframework.web.socket: INFO
+    com.hexicode: DEBUG
+    org.springframework.web.socket: DEBUG
     org.springframework.security: INFO
   pattern:
     console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
