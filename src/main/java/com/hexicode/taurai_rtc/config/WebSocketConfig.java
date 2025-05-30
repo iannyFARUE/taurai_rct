@@ -1,6 +1,7 @@
 package com.hexicode.taurai_rtc.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -21,9 +22,12 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Autowired
     private UserService userService;
 
+    @Value("application.firewalls.cors.allowed-origins")
+    private String allowedOrigins;
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(new CallSignalingHandler(jwtService,userService), "/call-signaling")
-                .setAllowedOrigins("*"); // Configure properly for production
+                .setAllowedOrigins(allowedOrigins.split(",")); // Configure properly for production
     }
 }

@@ -1,25 +1,56 @@
+# spring:
+#   application:
+#     name: taurai-rtc
+#   datasource:
+#     url: jdbc:postgresql://localhost:5432/taurai
+#     username: ianjunior
+#     password: IJNaomi@2003
+#     driver-class-name: org.postgresql.Driver
+#   jpa:
+#     hibernate:
+#       ddl-auto: update
+#     show-sql: false
+#     properties:
+#       hibernate:
+#         format_sql: true
+#     database: postgresql
+#     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+# application:
+#   security:
+#     jwt:
+#       secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+#       expiration: 86400000 # a day
+#       refresh-token:
+#         expiration: 604800000 # 7 days
+server:
+  port: ${PORT:8080}  # Railway sets PORT automatically
+
 spring:
-  application:
-    name: taurai-rtc
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  
+  # Database config - Railway will provide DATABASE_URL
   datasource:
-    url: jdbc:postgresql://localhost:5432/taurai
-    username: ianjunior
-    password: IJNaomi@2003
-    driver-class-name: org.postgresql.Driver
+    url: ${DATABASE_URL:jdbc:h2:mem:testdb}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
+  
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: ${DDL_AUTO:create-drop}
     show-sql: false
-    properties:
-      hibernate:
-        format_sql: true
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: ${DB_DIALECT:org.hibernate.dialect.H2Dialect}
 
+# JWT Configuration
 application:
   security:
     jwt:
-      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-      expiration: 86400000 # a day
-      refresh-token:
+      secret-token: ${JWT_SECRET:mySecretKey}
+      expiration: 3600000
+      refresh-token: # a day
         expiration: 604800000 # 7 days
+
+# CORS Configuration for production
+  firewalls:
+    cors:
+      allowed-origins: ${CORS_ORIGINS:http://localhost:3000,https://localhost:3000,localhost:5173}
