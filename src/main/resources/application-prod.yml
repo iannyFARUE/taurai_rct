@@ -19,7 +19,15 @@ spring:
 logging:
   level:
     com.hexicode: DEBUG
+    org.springframework: INFO
+    org.springframework.boot: INFO
     org.springframework.web.socket: DEBUG
-    org.springframework.security: INFO
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    com.zaxxer.hikari: DEBUG
+    org.postgresql: DEBUG
+    jdbc.sqltiming: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
   pattern:
     console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
