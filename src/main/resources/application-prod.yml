@@ -1,16 +1,19 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${PROD_DB_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}
+    url: jdbc:postgresql://${PROD_DB_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}?sslmode=disable&connectTimeout=30
     username: ${PROD_DB_USERNAME}
     password: ${PROD_DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
-      connection-timeout: 30000  # Increased from 20000
-      initialization-fail-timeout: -1  # This allows retries
       minimum-idle: 1
+      connection-timeout: 30000
       idle-timeout: 600000
       max-lifetime: 1800000
+      initialization-fail-timeout: -1
+      connection-test-query: SELECT 1
+      validation-timeout: 5000
+      leak-detection-threshold: 60000
   
   jpa:
     hibernate:
@@ -24,14 +27,11 @@ spring:
           time_zone: UTC
         connection:
           provider_disables_autocommit: true
-    # Add this to delay initialization
-    defer-datasource-initialization: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
 
 logging:
   level:
     com.hexicode: INFO
     org.springframework.web.socket: INFO
     org.springframework.security: INFO
-    org.hibernate: DEBUG
-    com.zaxxer.hikari: DEBUG
-    org.postgresql: DEBUG
