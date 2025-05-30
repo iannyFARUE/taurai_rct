@@ -7,7 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TauraiRtcApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TauraiRtcApplication.class, args);
+	      try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        SpringApplication.run(TauraiRtcApplication.class, args);
 	}
 
 }
