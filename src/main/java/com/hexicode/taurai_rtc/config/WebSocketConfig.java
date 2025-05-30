@@ -28,6 +28,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(new CallSignalingHandler(jwtService,userService), "/call-signaling")
-                .setAllowedOrigins(allowedOrigins.split(",")); // Configure properly for production
+                .setAllowedOrigins("*"); // Configure properly for production
     }
 }
