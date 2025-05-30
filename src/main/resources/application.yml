@@ -28,7 +28,7 @@ server:
 
 spring:
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
+    active: prod
   
   # Database config - Railway will provide DATABASE_URL
   datasource:
@@ -45,7 +45,7 @@ spring:
 application:
   security:
     jwt:
-      secret-token: ${JWT_SECRET:mySecretKey}
+      secret-key: ${JWT_SECRET:mySecretKey}
       expiration: 3600000
       refresh-token: # a day
         expiration: 604800000 # 7 days
