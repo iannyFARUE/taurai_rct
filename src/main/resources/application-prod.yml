@@ -1,35 +1,20 @@
 spring:
   datasource:
-    url: jdbc:${DATABASE_URL}
+    # Railway provides these variables automatically from PostgreSQL service
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
-      minimum-idle: 1
-      connection-timeout: 30000
-      idle-timeout: 600000
-      max-lifetime: 1800000
-      initialization-fail-timeout: -1
-      connection-test-query: SELECT 1
-      validation-timeout: 5000
-      leak-detection-threshold: 60000
   
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    properties:
-      hibernate:
-        format_sql: false
-        jdbc:
-          time_zone: UTC
-        connection:
-          provider_disables_autocommit: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-    open-in-view: false
+    show-sql: true
 
 logging:
   level:
     com.hexicode: INFO
-    org.springframework.web.socket: INFO
-    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
